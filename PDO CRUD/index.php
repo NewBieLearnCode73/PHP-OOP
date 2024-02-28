@@ -43,6 +43,7 @@ require('dbcon.php');
                                     <th>Phone</th>
                                     <th>Course</th>
                                     <th>Edit</th>
+                                    <th>Delete</th>
                                 </tr>
                             </thead>
 
@@ -71,6 +72,11 @@ require('dbcon.php');
                                             <td><?= $row->course; ?></td>
                                             <td>
                                                 <a href="student-edit.php?id=<?= $row->id; ?>" class="btn btn-primary">Edit</a>
+                                            </td>
+                                            <td>
+                                                <form action="code.php" method="post">
+                                                    <button type="submit" name="delete_student" value="<?= $row->id; ?>" class="btn btn-danger">Delete</button>
+                                                </form>
                                             </td>
                                         </tr>
                                     <?php

@@ -2,6 +2,37 @@
 session_start();
 require('dbcon.php');
 
+// Xử lí xóa sinh viên
+if (isset($_POST['delete_student'])) {
+    $student_id = $_POST['delete_student'];
+
+
+    try {
+        $query = "DELETE FROM students WHERE id=:student_id";
+        $statement = $conn->prepare($query);
+
+        // Bind parameters
+        $statement->bindParam(":student_id", $student_id);
+
+        // Execute 
+        $query_execute = $statement->execute();
+
+        if ($query_execute) {
+            $_SESSION['message'] = 'Delete Successfully'; // Dùng để in ra bên fileIndex xem insert thành công hay không
+            header('Location: index.php');
+            exit(0);
+        } else {
+            $_SESSION['message'] = 'Not Delete';
+            header('Location: index.php');
+            exit(0);
+        }
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+    }
+}
+
+
+
 // Xử lí sửa sinh viên
 if (isset($_POST['update_student_btn'])) {
     $student_id = $_POST['student_id'];
